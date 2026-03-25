@@ -9,5 +9,4 @@ public class SafetyNetApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SafetyNetApplication.class, args);
 	}
-
 }
