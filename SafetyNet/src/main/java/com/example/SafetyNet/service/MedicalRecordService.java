@@ -1,5 +1,6 @@
 package com.example.SafetyNet.service;
 
+import com.example.SafetyNet.data.DataWriter;
 import com.example.SafetyNet.model.MedicalRecords;
 import com.example.SafetyNet.repository.MedicalRecordRepository;
 import org.springframework.stereotype.Service;
@@ -10,9 +11,11 @@ import java.util.List;
 public class MedicalRecordService {
 
     private final MedicalRecordRepository medicalRecordRepository;
+    private final DataWriter dataWriter;
 
-    public MedicalRecordService(MedicalRecordRepository medicalRecordRepository) {
+    public MedicalRecordService(MedicalRecordRepository medicalRecordRepository, DataWriter dataWriter) {
         this.medicalRecordRepository = medicalRecordRepository;
+        this.dataWriter = dataWriter;
     }
 
     public List<MedicalRecords> getAllRecords() {
@@ -21,13 +24,22 @@ public class MedicalRecordService {
 
     public void addRecord(MedicalRecords record) {
         medicalRecordRepository.save(record);
+        dataWriter.saveAllData();
     }
 
     public boolean updateRecord(MedicalRecords record) {
-        return medicalRecordRepository.update(record);
+        boolean isUpdated = medicalRecordRepository.update(record);
+        if (isUpdated) {
+            dataWriter.saveAllData(); // Sauvegarde après modification
+        }
+        return isUpdated;
     }
 
     public boolean deleteRecord(String firstName, String lastName) {
-        return medicalRecordRepository.delete(firstName, lastName);
+        boolean isDeleted = medicalRecordRepository.delete(firstName, lastName);
+        if (isDeleted) {
+            dataWriter.saveAllData(); // Sauvegarde après suppression
+        }
+        return isDeleted;
     }
 }

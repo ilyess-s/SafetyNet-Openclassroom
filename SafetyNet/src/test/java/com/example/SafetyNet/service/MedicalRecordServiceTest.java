@@ -1,5 +1,6 @@
 package com.example.SafetyNet.service;
 
+import com.example.SafetyNet.data.DataWriter;
 import com.example.SafetyNet.model.MedicalRecords;
 import com.example.SafetyNet.repository.MedicalRecordRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,6 +21,9 @@ public class MedicalRecordServiceTest {
 
     @Mock
     private MedicalRecordRepository medicalRecordRepository;
+
+    @Mock
+    private DataWriter dataWriter;
 
     @InjectMocks
     private MedicalRecordService medicalRecordService;

@@ -1,5 +1,6 @@
 package com.example.SafetyNet.service;
 
+import com.example.SafetyNet.data.DataWriter;
 import com.example.SafetyNet.model.Firestations;
 import com.example.SafetyNet.model.MedicalRecords;
 import com.example.SafetyNet.model.Person;
@@ -32,6 +33,9 @@ public class FirestationServiceTest {
 
     @Mock
     private MedicalRecordRepository medicalRecordRepository;
+
+    @Mock
+    private DataWriter dataWriter;
 
     @InjectMocks
     private FirestationService firestationService;
@@ -74,6 +78,12 @@ public class FirestationServiceTest {
 
         assertTrue(updated);
         verify(firestationRepository).update(station1);
+    }
+
+    @Test
+    public void getFiresStationByStationNumber() {
+        // a faire
+
     }
 
     @Test

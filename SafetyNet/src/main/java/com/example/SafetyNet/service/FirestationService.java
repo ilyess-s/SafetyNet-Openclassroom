@@ -1,5 +1,6 @@
 package com.example.SafetyNet.service;
 
+import com.example.SafetyNet.data.DataWriter;
 import com.example.SafetyNet.model.Firestations;
 import com.example.SafetyNet.model.MedicalRecords;
 import com.example.SafetyNet.model.Person;
@@ -19,11 +20,13 @@ public class FirestationService {
     private final FirestationRepository firestationRepository;
     private final PersonRepository personRepository;
     private final MedicalRecordRepository medicalRecordRepository;
+    private final DataWriter dataWriter;
 
-    public FirestationService(FirestationRepository firestationRepository, PersonRepository personRepository, MedicalRecordRepository medicalRecordRepository) {
+    public FirestationService(FirestationRepository firestationRepository, PersonRepository personRepository, MedicalRecordRepository medicalRecordRepository, DataWriter dataWriter) {
         this.firestationRepository = firestationRepository;
         this.personRepository = personRepository;
         this.medicalRecordRepository = medicalRecordRepository;
+        this.dataWriter = dataWriter;
     }
 
     public List<Firestations> getAllFirestations() {
@@ -32,15 +35,25 @@ public class FirestationService {
 
     public void addFirestation(Firestations firestation) {
         firestationRepository.save(firestation);
+        dataWriter.saveAllData();
     }
 
     public boolean updateFirestation(Firestations firestation) {
-        return firestationRepository.update(firestation);
+        boolean isUpdated = firestationRepository.update(firestation);
+        if (isUpdated) {
+            dataWriter.saveAllData(); // Sauvegarde après modification
+        }
+        return isUpdated;
     }
 
     public boolean deleteFirestation(String address) {
-        return firestationRepository.delete(address);
+        boolean isDeleted = firestationRepository.delete(address);
+        if (isDeleted) {
+            dataWriter.saveAllData(); // Sauvegarde après suppression
+        }
+        return isDeleted;
     }
+
     // Méthode utilitaire pour calculer l'âge
     private int calculateAge(String birthdate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");

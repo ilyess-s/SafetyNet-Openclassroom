@@ -1,5 +1,6 @@
 package com.example.SafetyNet.service;
 
+import com.example.SafetyNet.data.DataWriter;
 import com.example.SafetyNet.model.MedicalRecords;
 import com.example.SafetyNet.model.Person;
 import com.example.SafetyNet.repository.MedicalRecordRepository;
@@ -19,10 +20,12 @@ public class PersonService {
 
     private final PersonRepository personRepository;
     private final MedicalRecordRepository medicalRecordRepository;
+    private final DataWriter dataWriter;
 
-    public PersonService(PersonRepository personRepository, MedicalRecordRepository medicalRecordRepository) {
+    public PersonService(PersonRepository personRepository, MedicalRecordRepository medicalRecordRepository, DataWriter dataWriter) {
         this.personRepository = personRepository;
         this.medicalRecordRepository = medicalRecordRepository;
+        this.dataWriter = dataWriter;
     }
 
     public List<Person> getAllPersons() {
@@ -31,14 +34,23 @@ public class PersonService {
 
     public void addPerson(Person person) {
         personRepository.save(person);
+        dataWriter.saveAllData(); // sauvegarde apres ajout
     }
 
     public boolean updatePerson(Person person) {
-        return personRepository.update(person);
+        boolean isUpdated = personRepository.update(person);
+        if (isUpdated) {
+            dataWriter.saveAllData(); // Sauvegarde après modification réussie
+        }
+        return isUpdated;
     }
 
     public boolean deletePerson(String firstName, String lastName) {
-        return personRepository.delete(firstName, lastName);
+        boolean isDeleted = personRepository.delete(firstName, lastName);
+        if (isDeleted) {
+            dataWriter.saveAllData(); // Sauvegarde après suppression réussie
+        }
+        return isDeleted;
     }
 
     private int calculateAge(String birthdate) {
@@ -91,4 +103,6 @@ public class PersonService {
                 .distinct() // évite les doublons
                 .toList();
     }
+
+
 }

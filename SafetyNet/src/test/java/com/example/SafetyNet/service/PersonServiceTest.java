@@ -1,5 +1,6 @@
 package com.example.SafetyNet.service;
 
+import com.example.SafetyNet.data.DataWriter;
 import com.example.SafetyNet.model.MedicalRecords;
 import com.example.SafetyNet.model.Person;
 import com.example.SafetyNet.repository.MedicalRecordRepository;
@@ -24,6 +25,9 @@ public class PersonServiceTest {
 
     @Mock
     private MedicalRecordRepository medicalRecordRepository;
+
+    @Mock
+    private DataWriter dataWriter;
 
     @InjectMocks
     private PersonService personService;

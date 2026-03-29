@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/firestation")
@@ -22,18 +23,18 @@ public class FirestationController {
     public ResponseEntity<?> getPersonsByStation(@RequestParam(required = false) Integer stationNumber) {
         if (stationNumber == null) {
             // Si aucun numéro fourni (ex: GET /firestation), on renvoie tout
-            return ResponseEntity.ok(firestationService.getAllFirestations());
+            throw new RuntimeException("Station not found");
         }
 
         // Si un numéro est fourni (ex: GET /firestation?stationNumber=3)
-        var response = firestationService.getPersonsByStation(stationNumber);
+        Map<String, Object> response = firestationService.getPersonsByStation(stationNumber);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/childAlert")
     public ResponseEntity<?> getChildrenByAddress(@RequestParam String address) {
 
-        var children = firestationService.getChildrenByAddress(address);
+        List<Map<String, Object>> children = firestationService.getChildrenByAddress(address);
 
         if (children.isEmpty()) {
             return ResponseEntity.ok(""); // chaîne vide si aucun enfant
@@ -85,3 +86,7 @@ public class FirestationController {
         }
     }
 }
+
+
+//ajouter un logger pour requettes entrantes et sortantes
+//modifier le fichier json a chaque modification aved POST ou PUT (ecriture dans le fichier)
