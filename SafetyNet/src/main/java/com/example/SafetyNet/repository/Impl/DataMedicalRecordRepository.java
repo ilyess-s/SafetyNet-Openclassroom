@@ -1,6 +1,7 @@
-package com.example.SafetyNet.repository;
+package com.example.SafetyNet.repository.Impl;
 
 import com.example.SafetyNet.model.MedicalRecords;
+import com.example.SafetyNet.repository.MedicalRecordRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

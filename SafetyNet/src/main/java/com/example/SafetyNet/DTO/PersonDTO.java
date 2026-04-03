@@ -1,13 +1,13 @@
-package com.example.SafetyNet.model;
+package com.example.SafetyNet.DTO;
 
 // DTO pour retourner uniquement les infos nécessaires
-public class PersonInfo {
+public class PersonDTO {
     private String firstName;
     private String lastName;
     private String address;
     private String phone;
 
-    public PersonInfo(String firstName, String lastName, String address, String phone) {
+    public PersonDTO(String firstName, String lastName, String address, String phone) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;

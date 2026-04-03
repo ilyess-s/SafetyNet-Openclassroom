@@ -1,6 +1,7 @@
 package com.example.SafetyNet.repository;
 
 import com.example.SafetyNet.model.Firestations;
+import com.example.SafetyNet.repository.Impl.DataFirestationRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

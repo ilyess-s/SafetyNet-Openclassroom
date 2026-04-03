@@ -22,7 +22,6 @@ public class DataLoader {
     private final MedicalRecordRepository medicalRecordRepository;
 
     public DataLoader(PersonRepository personRepository, FirestationRepository firestationRepository, MedicalRecordRepository medicalRecordRepository) {
-
         this.personRepository = personRepository;
         this.firestationRepository = firestationRepository;
         this.medicalRecordRepository = medicalRecordRepository;

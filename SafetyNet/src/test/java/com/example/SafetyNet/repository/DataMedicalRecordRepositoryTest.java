@@ -1,6 +1,7 @@
 package com.example.SafetyNet.repository;
 
 import com.example.SafetyNet.model.MedicalRecords;
+import com.example.SafetyNet.repository.Impl.DataMedicalRecordRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
