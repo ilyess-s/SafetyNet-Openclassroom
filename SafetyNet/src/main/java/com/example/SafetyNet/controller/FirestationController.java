@@ -2,6 +2,9 @@ package com.example.SafetyNet.controller;
 
 import com.example.SafetyNet.model.Firestations;
 import com.example.SafetyNet.service.FirestationService;
+import com.example.SafetyNet.util.LoggingFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +14,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/firestation")
 public class FirestationController {
+
+    private static final Logger logger = LoggerFactory.getLogger(FirestationController.class);
 
     //injection du service
     private final FirestationService firestationService;
@@ -24,6 +29,8 @@ public class FirestationController {
         if (stationNumber == null) {
             // Si aucun numéro fourni (ex: GET /firestation), on renvoie tout
             throw new RuntimeException("Station not found");
+            /*logger.error("Station not found");
+            return ResponseEntity.notFound().build();*/
         }
 
         // Si un numéro est fourni (ex: GET /firestation?stationNumber=3)

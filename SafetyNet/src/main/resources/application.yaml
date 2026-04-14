@@ -1,3 +1,5 @@
 spring:
   application:
     name: SafetyNet
+logging:
+  config: classpath:slf4j.xml
